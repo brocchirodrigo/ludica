@@ -21,6 +21,8 @@
     "@types/helmet": "^4.0.0",
     "@types/node": "^18.7.18",
     "babel-loader": "^8.2.5",
+    "babel-plugin-minify-dead-code-elimination": "^0.5.2",
+    "babel-plugin-minify-mangle-names": "^0.5.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "babel-preset-minify": "^0.5.2",

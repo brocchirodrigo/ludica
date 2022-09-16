@@ -2,7 +2,12 @@ module.exports = {
   presets: [
     ['@babel/preset-env', { targets: { node: 'current' } }],
     '@babel/preset-typescript',
-    'minify'
+    ["minify", {
+      "keepFnName": true,
+      "mangle": {
+        "exclude": ["ParserError", "NetworkError"]
+      }
+    }]
   ],
   plugins: [
     [
