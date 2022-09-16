@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  dbpostgres:
+    image: bitnami/postgresql:latest
+    container_name: database_ludica
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=ludica
+    volumes:
+      - pgdata:/data/postgres
+
+  redis:
+    image: redis:alpine
+    container_name: redis_ludica
+    restart: always
+    command: redis-server --requirepass docker
+    ports:
+      - 6379:6379
+
+volumes:
+  pgdata:
+    driver: local
