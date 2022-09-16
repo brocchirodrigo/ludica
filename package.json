@@ -4,8 +4,9 @@
   "main": "src/dist/server.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --exit-child --ignore node_modules src/shared/infra/http/server.ts"
+    "build": "yarn clear:build && echo Dist excluída, iniciando build. && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --exit-child --ignore node_modules src/shared/infra/http/server.ts",
+    "clear:build": "rm -rf dist"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
