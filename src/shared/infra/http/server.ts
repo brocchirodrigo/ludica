@@ -1,7 +1,7 @@
-import { env } from '@config/env';
+import { env } from "@config/env";
 
-import { serverHttp } from './app';
+import { serverHttp } from "./app";
 
-const port = env.port;
+const { port } = env;
 
 serverHttp.listen(port, () => console.log(`Servidor ativo na porta ${port}.`));
