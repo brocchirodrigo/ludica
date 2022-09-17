@@ -42,7 +42,23 @@
     "no-shadow": "off",
     "no-console": "off",
     "no-useless-constructor": "off",
-    "no-empty-function": "off",
+    "no-empty": [
+      true,
+      "allow-empty-functions",
+      "allow-empty-catch"
+    ],
+    "no-empty-function": [
+      "off",
+      {
+        "allow": [
+          "private-constructors",
+          "protected-constructors",
+          "decoratedFunctions",
+          "overrideMethods"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "error",
     "lines-between-class-members": "off",
     "import/extensions": [
       "error",

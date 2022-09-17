@@ -1,3 +1,4 @@
+import { env } from "@config/env";
 import axios from "axios";
 
 type TypeformRoutes = {
@@ -11,8 +12,11 @@ export const typeformRoutes: TypeformRoutes = {
   responses: "/forms/{:id}/responses",
 };
 
-const api = axios.create({
+const typeformApi = axios.create({
   baseURL: "https://api.typeform.com",
+  headers: {
+    Authorization: `Bearer ${env.typeform_token}`,
+  },
 });
 
-export default api;
+export default typeformApi;

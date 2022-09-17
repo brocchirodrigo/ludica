@@ -3,8 +3,12 @@ import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
 import http from "http";
+import qs from "qs";
+
+import typeformApi from "@shared/infra/http/service/typeform";
 
 import "express-async-errors";
+
 import { router } from "./routes";
 
 const app = express();
@@ -17,8 +21,26 @@ app.use(express.json());
 
 app.use(router);
 
+// async function chamada() {
+//   const params = {
+//     page_size: 200,
+//   };
+
+//   const responseApi = await typeformApi.get("/forms", {
+//     params,
+//     paramsSerializer: (params) => {
+//       return qs.stringify(params);
+//     },
+//   });
+//   const texto = JSON.stringify(responseApi.data);
+//   return texto;
+// }
+
+// const result = chamada();
+
 app.get("/", (req, res) => {
   res.status(200).json({ status: "ok" });
+  // console.log(result);
 });
 
 app.use(
