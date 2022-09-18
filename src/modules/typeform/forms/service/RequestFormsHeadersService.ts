@@ -74,16 +74,21 @@ class RequestFormsHeadersService {
   public async execute(): Promise<IFormHeaders[] | undefined> {
     const forms = await this.getForms();
 
-    if (forms) {
-      const promises = forms.map(async f => {
-        const result = await this.apiExecute({ form_id: f.id })
-        return result
-      });
+    try {
+      if (forms) {
+        const promises = forms.map(async f => {
+          const result = await this.apiExecute({ form_id: f.id })
+          return result
+        });
 
-      const resolved = await Promise.all(promises);
+        const resolved = await Promise.all(promises);
 
-      return resolved;
+        return resolved;
+      }
+    } catch (err) {
+      throw new AppError('Request Header: Erro ao obter os headers dos formulários.');
     }
+
   }
 }
 
