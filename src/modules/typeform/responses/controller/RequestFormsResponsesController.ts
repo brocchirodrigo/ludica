@@ -6,7 +6,9 @@ const requestFormsResponsesService = new RequestFormsResponsesService();
 
 class RequestFormsResponsesController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const formsResponse = await requestFormsResponsesService.execute();
+    const form_id = request.params;
+
+    const formsResponse = await requestFormsResponsesService.execute(form_id);
 
     return response.status(200).json(formsResponse);
   }

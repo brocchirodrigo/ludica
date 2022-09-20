@@ -14,6 +14,7 @@ const requestFormsResponsesController = new RequestFormsResponsesController();
 typeformsRouter.get('/forms', requestFormsController.handle);
 typeformsRouter.get('/forms/headers', requestFormsHeadersController.handle);
 typeformsRouter.get('/forms/responses', requestFormsResponsesController.handle);
+typeformsRouter.get('/forms/responses/:form_id', requestFormsResponsesController.handle);
 
 
 export { typeformsRouter }

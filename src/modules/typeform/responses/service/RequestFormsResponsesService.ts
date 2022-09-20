@@ -14,6 +14,10 @@ interface IParams {
   until?: Date;
 }
 
+interface IResponse {
+  form_id?: string;
+}
+
 const requestFormsService = new RequestFormsService()
 
 class RequestFormsResponsesService {
@@ -95,24 +99,31 @@ class RequestFormsResponsesService {
     return totalItems;
   }
 
-  public async execute(): Promise<ILeadResponses[] | undefined> {
-    const forms = await this.getForms();
+  public async execute({ form_id }: IResponse): Promise<ILeadResponses[] | undefined> {
 
-    try {
-      if (forms) {
-        const promises = forms.map(async f => {
-          const result = await this.apiExecute({ form_id: f.id, page_size: 1000 }) // Limite de 1000
+    if (!!form_id) {
+      const result = await this.apiExecute({ form_id: form_id, page_size: 1000 }) // Limite de 1000
 
-          return result
-        });
+      return result
+    } else {
+      try {
+        const forms = await this.getForms();
 
-        const resolved = await Promise.all(promises);
+        if (forms) {
+          const promises = forms.map(async f => {
+            const result = await this.apiExecute({ form_id: f.id, page_size: 1000 }) // Limite de 1000
 
-        return resolved;
+            return result
+          });
+
+          const resolved = await Promise.all(promises);
+
+          return resolved;
+        }
+      } catch (err) {
+        console.log(err)
+        throw new AppError('Request Header: Erro ao obter os headers dos formulários.');
       }
-    } catch (err) {
-      console.log(err)
-      throw new AppError('Request Header: Erro ao obter os headers dos formulários.');
     }
   }
 }
