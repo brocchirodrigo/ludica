@@ -51,7 +51,7 @@ class RequestFormsService {
 
       if (pages > 1) {
         while (count <= pages) {
-          console.log(count)
+
           const responseApiLoop = await this.apiExecute({ page: count, page_size: 200 });
 
           const otherItems = responseApiLoop.data.items;
