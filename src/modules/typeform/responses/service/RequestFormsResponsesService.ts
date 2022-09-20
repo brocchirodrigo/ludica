@@ -5,6 +5,7 @@ import AppError from "@error/AppError";
 import { RequestFormsService } from "../../forms/service/RequestFormsService";
 import IGetFormsDTO from "../../forms/DTOS/IGetFormsDTO";
 import { ILeadResponses, ILeadReturn } from '@modules/typeform/responses/DTOS/IGetFormsResponsesDTO';
+import NextFunction from 'express';
 
 interface IParams {
   form_id?: string;
@@ -31,7 +32,7 @@ class RequestFormsResponsesService {
     }
   }
 
-  private async apiExecute({ form_id, page, page_size, since, until }: IParams): Promise<any> {
+  private async apiExecute({ form_id, page, page_size, since, until }: IParams): Promise<ILeadResponses[]> {
     const responseApi = await typeformApi.get(`/forms/${form_id}/responses`, {
       params: {
         page_size: 1000,
@@ -99,7 +100,7 @@ class RequestFormsResponsesService {
     return totalItems;
   }
 
-  public async execute({ form_id }: IResponse): Promise<ILeadResponses[] | undefined> {
+  public async execute({ form_id }: IResponse): Promise<ILeadResponses[] | ILeadResponses[][] | undefined> {
 
     if (!!form_id) {
       const result = await this.apiExecute({ form_id: form_id, page_size: 1000 }) // Limite de 1000
@@ -113,12 +114,16 @@ class RequestFormsResponsesService {
           const promises = forms.map(async f => {
             const result = await this.apiExecute({ form_id: f.id, page_size: 1000 }) // Limite de 1000
 
-            return result
+            return result;
           });
 
           const resolved = await Promise.all(promises);
 
-          return resolved;
+          const alreadyValues = resolved;
+
+          const result = alreadyValues.filter(a => a.length > 0)
+
+          return result;
         }
       } catch (err) {
         console.log(err)
