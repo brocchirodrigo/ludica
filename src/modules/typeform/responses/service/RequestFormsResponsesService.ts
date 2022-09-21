@@ -5,7 +5,6 @@ import AppError from "@error/AppError";
 import { RequestFormsService } from "../../forms/service/RequestFormsService";
 import IGetFormsDTO from "../../forms/DTOS/IGetFormsDTO";
 import { ILeadResponses, ILeadReturn } from '@modules/typeform/responses/DTOS/IGetFormsResponsesDTO';
-import NextFunction from 'express';
 
 interface IParams {
   form_id?: string;
