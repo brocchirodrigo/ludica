@@ -37,10 +37,13 @@ class BrasilApiService {
     }
 
     if (CPF) {
-      const consultCPF = CPF.replace(/'.'|'-'/, '')
-      const cpfValidated = cpf.isValid(consultCPF)
-      returns.push({ "return_cpf": { CPF: `${CPF}`, validate: cpfValidated } })
-
+      try {
+        const consultCPF = CPF.replace(/'.'|'-'/, '')
+        const cpfValidated = cpf.isValid(consultCPF)
+        returns.push({ "return_cpf": { CPF: `${CPF}`, validate: cpfValidated } })
+      } catch {
+        returns.push({ "return_cpf": {} })
+      }
     }
 
     return returns;
